@@ -39,6 +39,7 @@ router.put('/update-job-post/:id',async(req,res) => {
       new:true,
       runValidators: true
     })
+    return res.json({ "success": true, data: result })
   }catch(err){
     return res.json({success: false, message:err.message})
   }
