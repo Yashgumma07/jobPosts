@@ -47,3 +47,5 @@ const appliedSchema = new mongoose.Schema({
     required: true
   }
 }, { timestamps: true });
+
+module.exports = mongoose.model("Applied", appliedSchema);

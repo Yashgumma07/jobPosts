@@ -15,3 +15,5 @@ const registerSchema = new mongoose.Schema({
     required: true
   }
 }, { timestamps: true });
+
+module.exports = mongoose.model("Applied", registerSchema);
