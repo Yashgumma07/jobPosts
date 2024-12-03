@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose")
 const router = express.Router();
-const schemaDB = require("../../models/applicantSchema/applicantSchema");
+const schemaDB = require("../../models/appliedSchema/appliedSchema");
 
 router.post('/applicants', async(req,res) => {
   try{
