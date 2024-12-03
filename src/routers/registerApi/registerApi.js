@@ -22,3 +22,5 @@ router.post('/add-user', async(req,res) => {
   return res.json({ success : false, message : err.message})
 }
 })
+
+module.exports = router;

@@ -11,3 +11,5 @@ router.get('/login', async(req,res) => {
     return res.json({success : false, meassage:err.message})
   }
 })
+
+module.exports = router;

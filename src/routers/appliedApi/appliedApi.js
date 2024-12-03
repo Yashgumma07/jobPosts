@@ -51,3 +51,5 @@ router.get('/get-all-applied-jobs/:id',async(req,res) => {
     return res.json({success : false, meassage:err.message})
   }
 })
+
+module.exports = router;
