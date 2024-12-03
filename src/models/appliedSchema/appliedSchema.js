@@ -11,7 +11,7 @@ const appliedSchema = new mongoose.Schema({
     required: true
   },
   experience: {
-    type: number,
+    type: String,
     required: true
   },
   gender: {
