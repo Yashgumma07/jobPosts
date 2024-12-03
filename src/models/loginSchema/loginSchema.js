@@ -12,4 +12,4 @@ const loginSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model("Applied", loginSchema);
+module.exports = mongoose.model("Login", loginSchema);
