@@ -14,12 +14,6 @@ const applied = require("../routers/appliedApi/appliedApi");
 router.use("/applied", schemaRouter1);
 router.use("/applicant", applied);
 
-const schemaRouter2 = require("./loginApi/loginApi");
-const login = require("../routers/loginApi/loginApi");
-
-router.use("/login", schemaRouter2);
-router.use("/login", login);
-
 const schemaRouter3 = require("./registerApi/registerApi");
 const register = require("../routers/registerApi/registerApi");
 
