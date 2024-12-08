@@ -6,7 +6,7 @@ const schemaDB = require("../../models/appliedSchema/appliedSchema");
 router.post('/apply', async (req, res) => {
   try {
     const data = req.body;
-    const new_data = new schemaDB({ ...data }, { userId: req.body.userId }, { jobPostId: req.body.jobPostId })
+    const new_data = new schemaDB({ ...data })
     const result = await new_data.save()
     return res.json({ "success": true, data: result })
   } catch (error) {
