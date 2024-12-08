@@ -45,7 +45,11 @@ const jobPostSchema = new mongoose.Schema({
   },
   description : {
     type : String
-  }
+  },
+  applicants : {
+    type : Number,
+    default : 0
+  },
 },
    { timestamps : true }
  );
