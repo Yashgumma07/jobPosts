@@ -38,6 +38,10 @@ const appliedSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  shortlisted: {
+    type: Boolean,
+    default: false
+  },
   jobPostId: {
     type: String,
     required: true

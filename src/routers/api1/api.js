@@ -24,6 +24,63 @@ router.get('/get-all-job-posts',async(req,res) => {
   }
 })
 
+router.post('/get-search-job-posts', async (req, res) => {
+  const { jobTitle, salaryMin, salaryMax, jobType, jobMode } = req.body;
+
+  try {
+    // Construct dynamic filter conditions
+    const filterConditions = {
+      $or: [
+        { jobTitle: { $regex: jobTitle || '', $options: 'i' } }, // Match jobTitle
+        { company: { $regex: jobTitle || '', $options: 'i' } },  // Match company
+      ],
+    };
+
+    // Initialize salaryMin and salaryMax if they don't exist
+    if (salaryMin) {
+      if (!filterConditions.salaryMin) {
+        filterConditions.salaryMin = {};
+      }
+      filterConditions.salaryMin.$gte = parseFloat(salaryMin); // Greater than or equal to salaryMin
+    }
+
+    if (salaryMax) {
+      if (!filterConditions.salaryMax) {
+        filterConditions.salaryMax = {};
+      }
+      filterConditions.salaryMax.$lte = parseFloat(salaryMax); // Less than or equal to salaryMax
+    }
+
+    // Add jobType filter
+    if (jobType) {
+      filterConditions.jobType = jobType;
+    }
+
+    // Add workMode filter
+    if (jobMode) {
+      filterConditions.jobMode = jobMode;
+    }
+
+    // // Add industryType filter
+    // if (industryType) {
+    //   filterConditions.industryType = industryType;
+    // }
+
+    // // Add experience filter
+    // if (experience) {
+    //   filterConditions.experience = experience;
+    // }
+
+    // Perform the query with the constructed filters
+    const result = await schemaDB.find(filterConditions);
+
+    return res.json({ success: true, data: result });
+  } catch (err) {
+    return res.json({ success: false, message: err.message });
+  }
+});
+
+
 router.delete('/delete-job-post/:id',async(req,res) => {
   try{
     await schemaDB.findByIdAndDelete(req.params.id);
@@ -56,7 +113,16 @@ router.get('/get-saved-job-posts/:id',async(req,res) => {
 
 router.get('get-applied-job-posts/:id',async(req,res) => {
   try{
-    const result = await schemaDB.find({applicantId: req.params.id});
+    const result = await schemaDB.findById(req.params.id);
+    return res.json({ "success": true, data: result })
+  }catch(err){
+    return res.json({success : false, meassage:err.message})
+  }
+})
+
+router.get('/count-job-posts',async(req,res) => {
+  try{
+    const result = await schemaDB.countDocuments();
     return res.json({ "success": true, data: result })
   }catch(err){
     return res.json({success : false, meassage:err.message})

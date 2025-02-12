@@ -62,4 +62,16 @@ router.get('/get-all-applied-jobs/:id', async (req, res) => {
   }
 })
 
+router.put('/shortlist/:id', async (req, res) => {
+  try {
+    const result = await schemaDB.findByIdAndUpdate(req.params.id, { shortlisted: true }, {
+      new: true,
+      runValidators: true
+    })
+    return res.json({ "success": true, data: result })
+  } catch (err) {
+    return res.json({ success: false, message: err.message })
+  }
+})
+
 module.exports = router;
