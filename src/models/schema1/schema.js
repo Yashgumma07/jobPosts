@@ -35,12 +35,15 @@ const jobPostSchema = new mongoose.Schema({
     default: () => new Date(Date.now() + 3*24*60*60*1000)
   },
   experience : {
-    type : String,
+    type : Number,
     required : true
   },
   jobMode : {
     type : String,
     required : true
+  },
+  role : {
+    type : String
   },
   description : {
     type : String

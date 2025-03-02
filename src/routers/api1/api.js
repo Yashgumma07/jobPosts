@@ -25,7 +25,7 @@ router.get('/get-all-job-posts',async(req,res) => {
 })
 
 router.post('/get-search-job-posts', async (req, res) => {
-  const { jobTitle, salaryMin, salaryMax, jobType, jobMode } = req.body;
+  const { jobTitle, salaryMin, salaryMax, jobType, jobMode, role, experience } = req.body;
 
   try {
     // Construct dynamic filter conditions
@@ -61,15 +61,18 @@ router.post('/get-search-job-posts', async (req, res) => {
       filterConditions.jobMode = jobMode;
     }
 
-    // // Add industryType filter
-    // if (industryType) {
-    //   filterConditions.industryType = industryType;
-    // }
+    // Add industryType filter
+    if (role) {
+      filterConditions.role = role;
+    }
 
-    // // Add experience filter
-    // if (experience) {
-    //   filterConditions.experience = experience;
-    // }
+    // Add experience filter
+    if (experience) {
+      if (!filterConditions.experience) {
+        filterConditions.experience = {};
+      }
+      filterConditions.experience.$lte = parseInt(experience); // Less than or equal to experience
+    }
 
     // Perform the query with the constructed filters
     const result = await schemaDB.find(filterConditions);

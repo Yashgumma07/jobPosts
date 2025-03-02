@@ -23,6 +23,15 @@ router.get('/get-all-applications', async (req, res) => {
   }
 });
 
+router.get('/get-all-applications/:id', async (req, res) => {
+  try {
+    const result = await schemaDB.find({ jobPostId: req.params.id }); //find all applications for a particular job
+    return res.json({ "success": true, data: result })  //returning the result
+  } catch (err) {
+    return res.json({ success: false, meassage: err.message }) //returning error message
+  }
+});
+
 router.get('/get-application/:id', async (req, res) => {
   try {
     const id = req.params.id;
@@ -62,7 +71,7 @@ router.get('/get-all-applied-jobs/:id', async (req, res) => {
   }
 })
 
-router.put('/shortlist/:id', async (req, res) => {
+router.get('/shortlist/:id', async (req, res) => {
   try {
     const result = await schemaDB.findByIdAndUpdate(req.params.id, { shortlisted: true }, {
       new: true,
